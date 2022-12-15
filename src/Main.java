@@ -2,20 +2,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
-    static List<Byte> c = new LinkedList<>();
     public static void main(String[] args) {
         System.out.println(me("{(({})[(){}])}"));
     }
 
     private static boolean me(String str) {
         if (!str.isEmpty()) {
+            List<Byte> openingBrackets = new LinkedList<>();
             byte[] bytes = str.getBytes();
             for (byte b : bytes) {
                 if (isOpen(b)) {
-                    c.add(b);
+                    openingBrackets.add(b);
                 } else {
-                    if (!c.isEmpty() && isValidClosed(c.get(c.size() - 1), b)) {
-                        c.remove(c.size() - 1);
+                    if (!openingBrackets.isEmpty() && isValidClosed(openingBrackets.get(openingBrackets.size() - 1), b)) {
+                        openingBrackets.remove(openingBrackets.size() - 1);
                     } else {
                         return false;
                     }
